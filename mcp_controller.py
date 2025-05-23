@@ -9,6 +9,7 @@ from mcp_service import McpService
 from mcp_stdio_client import McpStdioClient
 from mcp_script_manager import McpScriptManager
 
+print("--- DEBUG: mcp_controller.py is being loaded! ---") # Add this line
 logger = logging.getLogger(__name__)
 
 mcp_bp = Blueprint('mcp_api', __name__, url_prefix='/api/mcp')
@@ -55,6 +56,7 @@ async def get_mcp_service_async() -> McpService:
 # --- Function to initialize McpService (called from app.py) ---
 # <--- MODIFIED: This function is now also protected by the lock and calls the same init logic --->
 async def initialize_mcp_service_async():
+    print("DEBUG: initialize_mcp_service_async START") # Add this
     """
     Initializes the global McpService instance.
     This function is primarily for internal use or explicit startup.
@@ -63,11 +65,13 @@ async def initialize_mcp_service_async():
     global _mcp_service
     async with _mcp_service_lock: # 确保初始化过程是唯一的
         if _mcp_service is None:
+            print("DEBUG: initialize_mcp_service_async Part 1 Done") # Add this
             logger.info("Explicitly initializing McpService asynchronously...")
             stdio_client = McpStdioClient()
             script_manager = McpScriptManager()
             _mcp_service = McpService(stdio_client, script_manager)
             await _mcp_service.initialize()
+                print("DEBUG: initialize_mcp_service_async END") # Add this
             logger.info("McpService asynchronous initialization complete.")
         return _mcp_service
 
