@@ -6,6 +6,12 @@ import uuid # Used for unique temporary file names
 
 app = Flask(__name__)
 
+# --- 添加这个新的健康检查端点 ---
+@app.route('/healthz', methods=['GET'])
+def health_check():
+    return jsonify({"status": "ok", "message": "Python executor service is healthy"}), 200
+# --- 结束添加 ---
+
 @app.route('/execute-python', methods=['POST'])
 def execute_python_code():
     data = request.get_json()
