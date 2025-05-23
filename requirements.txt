@@ -1,0 +1,1 @@
+Flask==2.3.2 # Check for the latest stable version
