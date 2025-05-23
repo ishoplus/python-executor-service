@@ -2,3 +2,4 @@ Flask
 gunicorn
 gevent # Or eventlet, depending on your choice for async worker class
 aiofiles # If you decide to use it for async file operations in your MCP implementation
+asgiref # <--- 新增这一行
