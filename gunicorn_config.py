@@ -19,18 +19,18 @@ timeout = 30             # worker 处理请求的超时时间（秒）
 
 # Gunicorn 钩子：在每个 worker 进程启动时执行
 def on_worker_boot(worker):
-    print("--- DEBUG: on_worker_boot entered! ---") # Add this line
-    logger.info("Gunicorn worker booted, starting MCP service initialization...")
-    loop = asyncio.get_event_loop()
-    if loop.is_running():
-        # 如果事件循环已经运行 (例如 gevent 自动创建的)
-        loop.create_task(initialize_mcp_service_async())
-    else:
-        # 如果事件循环尚未运行 (在某些非标准场景下，但 gevent 通常会启动循环)
-        # 需谨慎使用 run_until_complete，因为它会阻塞当前线程直到任务完成
-        loop.run_until_complete(initialize_mcp_service_async())
-        print("--- DEBUG: on_worker_boot finished! ---") # Add this line
-        logger.info("McpService initialized in Gunicorn worker.")
+#     print("--- DEBUG: on_worker_boot entered! ---") # Add this line
+#     logger.info("Gunicorn worker booted, starting MCP service initialization...")
+#     loop = asyncio.get_event_loop()
+#     if loop.is_running():
+#         # 如果事件循环已经运行 (例如 gevent 自动创建的)
+#         loop.create_task(initialize_mcp_service_async())
+#     else:
+#         # 如果事件循环尚未运行 (在某些非标准场景下，但 gevent 通常会启动循环)
+#         # 需谨慎使用 run_until_complete，因为它会阻塞当前线程直到任务完成
+#         loop.run_until_complete(initialize_mcp_service_async())
+#         print("--- DEBUG: on_worker_boot finished! ---") # Add this line
+#         logger.info("McpService initialized in Gunicorn worker.")
 
 # Gunicorn 钩子：在每个 worker 进程退出时执行
 def on_worker_exit(worker, sig):
