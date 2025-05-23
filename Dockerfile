@@ -20,7 +20,7 @@ RUN apt-get update && \
 
 # 在构建阶段安装所有 Python 依赖，包括 gunicorn 和 aiofiles
 # (asyncio 是 Python 内置的，但一些额外的库如 aiofiles 可能需要)
-RUN pip install --no-cache-dir -r requirements.txt gunicorn aiofiles
+RUN pip install --no-cache-dir -r requirements.txt
 
 # 复制应用程序代码
 COPY app.py .
@@ -29,18 +29,15 @@ COPY mcp_service.py .
 COPY mcp_stdio_client.py .
 COPY mcp_script_manager.py .
 COPY mcp_server_impl.py .
-# <-- Copy the actual MCP server implementation
+COPY gunicorn_config.py .
+# <-- 确保 gunicorn_config.py 被复制
 
 # 设置 MCP 服务器脚本的路径 (在容器内部)
 ENV MCP_SERVER_SCRIPT="/app/mcp_server_impl.py"
 ENV MCP_SERVER_COMMAND="python3"
-# Or "python" depending on your interpreter
 
 # 暴露 Flask 应用程序将监听的端口
 EXPOSE 8000
 
-# 定义容器启动时运行的命令
-# 注意：Flask 应用使用了 async def 路由，Gunicorn 推荐使用异步 worker
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "--worker-class", "gevent", "app:app"]
-# 或者 "--worker-class", "eventlet"
-# 确保在 requirements.txt 中包含 gevent 或 eventlet
+# 定义容器启动时运行的命令，使用 gunicorn_config.py 配置文件
+CMD ["gunicorn", "-c", "gunicorn_config.py", "app:app"]
