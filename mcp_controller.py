@@ -71,7 +71,7 @@ async def initialize_mcp_service_async():
             script_manager = McpScriptManager()
             _mcp_service = McpService(stdio_client, script_manager)
             await _mcp_service.initialize()
-                print("DEBUG: initialize_mcp_service_async END") # Add this
+            print("DEBUG: initialize_mcp_service_async END") # Add this
             logger.info("McpService asynchronous initialization complete.")
         return _mcp_service
 
