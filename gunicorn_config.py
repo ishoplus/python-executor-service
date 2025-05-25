@@ -31,6 +31,8 @@ def on_worker_boot(worker):
 #         loop.run_until_complete(initialize_mcp_service_async())
 #         print("--- DEBUG: on_worker_boot finished! ---") # Add this line
 #         logger.info("McpService initialized in Gunicorn worker.")
+    pass # 如果您想保留函数定义但暂时没有活动代码，请添加 pass
+
 
 # Gunicorn 钩子：在每个 worker 进程退出时执行
 def on_worker_exit(worker, sig):
