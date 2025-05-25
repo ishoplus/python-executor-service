@@ -1,1 +1,29 @@
-Flask==2.3.2 # Check for the latest stable version
+Flask==2.3.2
+gunicorn
+
+# 数据处理与分析
+pandas==2.2.2  # 强大的数据结构和数据分析工具
+numpy==1.26.4  # 数值计算基础库
+
+# HTTP 请求
+requests==2.31.0 # 简单易用的 HTTP 库
+
+# 可视化 (如果您在沙盒中执行的脚本需要生成图表)
+# 请注意，在无头（没有图形界面）的服务器环境中，matplotlib 可能会有一些额外的配置要求，
+# 但对于基本的计算和数据结构来说，这些库是核心。
+# 如果您不需要在服务器上生成图片，可以不加 matplotlib。
+matplotlib==3.8.4
+
+# 实用工具
+python-dotenv==1.0.1 # 用于从 .env 文件加载环境变量 (如果您的沙盒需要配置敏感信息)
+PyYAML==6.0.1        # 处理 YAML 数据格式
+
+# 其他通用科学计算工具 (Scipy 是 NumPy 的扩展)
+scipy==1.13.0
+
+# 机器学习 (如果您的沙盒需要执行简单的 ML 任务)
+# scikit-learn==1.4.2
+
+# 网页抓取 (如果您的沙盒需要抓取网页内容)
+beautifulsoup4==4.12.3
+lxml==5.1.0 # 通常与 beautifulsoup4 配合使用，提供更快的解析
